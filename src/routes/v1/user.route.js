@@ -15,9 +15,9 @@ router.route('/updateProfile/').post(auth('manageUsers'), userController.updateM
 //get all users
 router.route('/get-users').post(auth('manageUsers'), validate(userValidation.listUsers), userController.listUsers);
 
-// FOR BACKEND-ADMIN 
+// FOR BACKEND-ADMIN
 router.route('/getAllUsers').post(auth('manageUsers'), userController.listAllUsers);
-// FOR BACKEND-ADMIN 
+// FOR BACKEND-ADMIN
 
 router
   .route('/statususer')
@@ -26,7 +26,7 @@ router
 router
   .route('/:userId')
   .get(auth('getUsers'), validate(userValidation.getUser), userController.getUser)
-  .put(auth('manageUsers'),  userController.updateUser)
+  .put(auth('manageUsers'), userController.updateUser)
   .delete(auth('manageUsers'), validate(userValidation.deleteUser), userController.deleteUser);
 
 router
@@ -268,3 +268,248 @@ module.exports = router;
  *       "404":
  *         $ref: '#/components/responses/NotFound'
  */
+
+
+
+/**
+ * @swagger
+ * tags:
+ *   name: Team
+ *   description: Team management and retrieval
+ */
+
+
+/**
+ * @swagger
+ * /team:
+ *  post:
+ *     summary: Create a team member
+ *     description: Only admins can create other team members.
+ *     tags: [Team]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstName
+ *               - lastName
+ *               - email
+ *               - phoneNumber
+ *               - birthDate
+ *               - gender
+ *               - reportingTo
+ *               - roles
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: must be unique
+ *               phoneNumber:
+ *                 type: number
+ *               birthDate:
+ *                 type: string
+ *               gender:
+ *                 type:boolean
+ *               reportingTo:
+ *                 type: string
+ *               roles:
+ *                 type: string
+ *             example:
+ *               firstName: John
+ *               lastName: Doe
+ *               email: johndoe@example.com
+ *               phoneNumber: 9088123123
+ *               birthDate: 24-02-2000
+ *               gender: Male
+ *               reportingTo: Jane Doe
+ *               roles: Manager
+ *
+ *     responses:
+ *       "201":
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/Team'
+ *       "400":
+ *         $ref: '#/components/responses/DuplicateEmail'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
+ *  get:
+ *     summary: Get all team member
+ *     description: Only admins can retrieve all team member.
+ *     tags: [Team]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Team'
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *                 limit:
+ *                   type: integer
+ *                   example: 10
+ *                 totalPages:
+ *                   type: integer
+ *                   example: 1
+ *                 totalResults:
+ *                   type: integer
+ *                   example: 1
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
+ */
+
+
+/**
+ * @swagger
+ * /team/{id}:
+ *   put:
+ *     summary: Update a team member
+ *     description: Only admins can create other team members.
+ *     tags: [Team]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Team Member id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstName
+ *               - lastName
+ *               - email
+ *               - phoneNumber
+ *               - birthDate
+ *               - gender
+ *               - reportingTo
+ *               - roles
+ *             properties:
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: must be unique
+ *               phoneNumber:
+ *                 type: number
+ *               birthDate:
+ *                 type: string
+ *               gender:
+ *                 type:boolean
+ *               reportingTo:
+ *                 type: string
+ *               roles:
+ *                 type: string
+ *             example:
+ *               firstName: John
+ *               lastName: Doe
+ *               email: johndoe@example.com
+ *               phoneNumber: 9088123123
+ *               birthDate: 24-02-2000
+ *               gender: Male
+ *               reportingTo: Jane Doe
+ *               roles: Manager
+ *
+ *     responses:
+ *       "201":
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/Team'
+ *       "400":
+ *         $ref: '#/components/responses/DuplicateEmail'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
+ *   get:
+ *     summary: Get a team member
+ *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     tags: [Team]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Team member id
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *
+ *   delete:
+ *     summary: Delete a team member
+ *     description: Logged in users can fetch only their own user information. Only admins can fetch other users.
+ *     tags: [Team]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Team member id
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/User'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+

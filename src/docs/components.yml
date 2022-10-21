@@ -39,6 +39,36 @@ components:
         refresh:
           $ref: '#/components/schemas/Token'
 
+    Team:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        phoneNumber:
+          type: number
+        birthDate:
+          type: string
+        gender:
+          type: boolean
+        reportingTo:
+          type: string
+        roles:
+          type: string
+      example:
+        firstName: John
+        lastName: Doe
+        email: johndoe@example.com
+        phoneNumber: 9088123123
+        birthDate: 24-02-2000
+        gender: Male
+        reportingTo: Jane Doe
+        roles: Manager
+
     Error:
       type: object
       properties:
@@ -46,6 +76,7 @@ components:
           type: number
         message:
           type: string
+
 
   responses:
     DuplicateEmail:
