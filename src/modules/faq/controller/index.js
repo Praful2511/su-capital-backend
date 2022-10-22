@@ -1,0 +1,5 @@
+module.exports.addFaq = require('./controller.addFaq')
+module.exports.updateFaq = require('./controller.updateFaq')
+module.exports.getAllFaq = require('./controller.getAllFaq')
+module.exports.getFaqById = require('./controller.getFaqById')
+module.exports.removeFaq = require('./controller.removeFaq')

@@ -69,6 +69,18 @@ components:
         reportingTo: Jane Doe
         roles: Manager
 
+    FAQ:
+      type: object
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+      example:
+        question: Can I check my loan without login?
+        answer: No you can't
+
+
     Error:
       type: object
       properties:

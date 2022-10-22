@@ -513,3 +513,194 @@ module.exports = router;
  *         $ref: '#/components/responses/NotFound'
  */
 
+/**
+ * @swagger
+ * tags:
+ *   name: FAQ
+ *   description: Faq management
+ */
+
+
+/**
+ * @swagger
+ * /faq:
+ *  post:
+ *     summary: Create a FAQ
+ *     description: Only admins can create FAQ.
+ *     tags: [FAQ]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - question
+ *               - answer
+ *             properties:
+ *               question:
+ *                 type: string
+ *               answer:
+ *                 type: string
+ *             example:
+ *               question: Can I check my loan without login?
+ *               answer: No
+ *
+ *     responses:
+ *       "201":
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/FAQ'
+ *       "400":
+ *         $ref: '#/components/responses/DuplicateEmail'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
+ *  get:
+ *     summary: Get all Faq
+ *     description: Only admins can retrieve all Faq.
+ *     tags: [FAQ]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 results:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/FAQ'
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *                 limit:
+ *                   type: integer
+ *                   example: 10
+ *                 totalPages:
+ *                   type: integer
+ *                   example: 1
+ *                 totalResults:
+ *                   type: integer
+ *                   example: 1
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
+ */
+
+
+/**
+ * @swagger
+ * /faq/{id}:
+ *   put:
+ *     summary: Update a FAQ
+ *     description: Only admins can update FAQ.
+ *     tags: [FAQ]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: FAQ id
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - question
+ *               - answer
+ *             properties:
+ *               question:
+ *                 type: string
+ *               answer:
+ *                 type: string
+ *             example:
+ *               question: Can I check my loan without login?
+ *               answer: No
+ *
+ *     responses:
+ *       "201":
+ *         description: Created
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/FAQ'
+ *       "400":
+ *         $ref: '#/components/responses/DuplicateEmail'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *
+ *   get:
+ *     summary: Get a FAQ
+ *     description: Only admins can fetch FAQ.
+ *     tags: [FAQ]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: FAQ id
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/FAQ'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ *
+ *   delete:
+ *     summary: Delete a FAQ
+ *     description: Only admins can delete FAQ.
+ *     tags: [FAQ]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: FAQ id
+ *     responses:
+ *       "200":
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *                $ref: '#/components/schemas/FAQ'
+ *       "401":
+ *         $ref: '#/components/responses/Unauthorized'
+ *       "403":
+ *         $ref: '#/components/responses/Forbidden'
+ *       "404":
+ *         $ref: '#/components/responses/NotFound'
+ */
+
+

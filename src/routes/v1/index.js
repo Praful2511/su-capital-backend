@@ -7,6 +7,7 @@ const nftUserRoute = require('./nftUsers.route');
 const collectionsRoute = require('../v1/collections.route')
 const seriesRoute = require('../../routes/v1/series.route')
 const teamRoute = require("../../routes/v1/team.route")
+const faqRoute = require("../../routes/v1/faq.route")
 const collectibleRoute = require("./collectible.route")
 const comicRoute = require('./comic.route')
 const dropRoute = require('./drops.route')
@@ -48,6 +49,10 @@ const defaultRoutes = [
   {
     path: '/team',
     route: teamRoute,
+  },
+  {
+    path: '/faq',
+    route: faqRoute,
   },
   //collectible route
   {
